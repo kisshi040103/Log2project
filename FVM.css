@@ -1,0 +1,323 @@
+/* ============================================================
+   FVM.css — Fleet Vehicle Management Stylesheet
+   Sections:
+     1.  Reset & Base
+     2.  Login Screen
+     3.  Scrollbar
+     4.  Animations
+     5.  Sidebar & Navigation
+     6.  Main Layout
+     7.  Cards & Stat Boxes
+     8.  Buttons
+     9.  Forms
+    10.  Modals
+    11.  Tables
+    12.  Page Headers
+    13.  Map
+    14.  Kanban / Dispatch Board
+    15.  Trip Tracking Panel
+    16.  QR / Driver ID Card
+    17.  Charts
+    18.  Priority Badges
+    19.  Print
+   ============================================================ */
+
+
+/* ── 1. Reset & Base ─────────────────────────────────────── */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ── 2. Login Screen ─────────────────────────────────────── */
+/* Applied only to the driver_track page (full-screen centered layout) */
+body.login-screen {
+    font-family: system-ui, sans-serif;
+    background: #0d150e;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+body.login-screen .card {
+    background: #14401a;
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+.logo     { font-size: 36px; margin-bottom: 10px; }
+.title    { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.sub      { font-size: 13px; color: #81c784; margin-bottom: 24px; }
+.route    { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 14px; }
+.status   { font-size: 18px; font-weight: 700; margin: 16px 0 8px; }
+.coords   { font-size: 11px; color: #81c784; margin-bottom: 20px; font-family: monospace; }
+.btn      { width: 100%; padding: 16px; border-radius: 14px; border: none; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 10px; }
+.btn-start   { background: linear-gradient(135deg, #256427, #2e7d32); color: #fff; }
+.btn-stop    { background: #dc2626; color: #fff; }
+.pulse    { width: 12px; height: 12px; background: #22c55e; border-radius: 50%; display: inline-block; animation: p 1.5s infinite; margin-right: 6px; }
+.inactive { background: #dc2626; }
+@keyframes p {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+
+/* ── 3. Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-thumb { background: #a5d6a7; border-radius: 3px; }
+
+
+/* ── 4. Animations ───────────────────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+}
+@keyframes ping-anim {
+    0%   { transform: scale(1);   opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+.page-anim { animation: fadeUp 0.3s ease both; }
+.live-dot  { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; margin-right: 5px; }
+
+
+/* ── 5. Sidebar & Navigation ─────────────────────────────── */
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #f6faf7;
+    color: #0d150e;
+    display: flex;
+    min-height: 100vh;
+}
+input, select, textarea { font-family: 'Outfit', sans-serif; }
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #4caf50 !important;
+    box-shadow: 0 0 0 3px #4caf5022;
+}
+button { font-family: 'Outfit', sans-serif; cursor: pointer; }
+button:focus { outline: none; }
+
+.sidebar {
+    width: 230px;
+    background: #14401a;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 50;
+    overflow-y: auto;
+}
+.sidebar-logo {
+    padding: 22px 20px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, #256427, #388e3c);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(46,125,50,0.30);
+    flex-shrink: 0;
+}
+.logo-text { font-family: 'DM Serif Display', serif; font-size: 17px; color: #fff; letter-spacing: -0.2px; }
+.logo-sub  { font-size: 9px; color: rgba(255,255,255,0.30); letter-spacing: 1px; text-transform: uppercase; }
+
+.nav-section {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.28);
+    padding: 0 10px; margin: 12px 0 6px;
+}
+.nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 10px; margin-bottom: 2px;
+    color: rgba(255,255,255,0.55); font-size: 13.5px; font-weight: 500;
+    text-decoration: none; transition: all 200ms;
+    border-left: 3px solid transparent;
+    margin-left: 10px; margin-right: 10px;
+}
+.nav-item:hover  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.90); }
+.nav-item.active { background: rgba(76,175,80,0.18); border-left-color: #81c784; color: #81c784; }
+.nav-icon  { font-size: 15px; width: 22px; text-align: center; }
+.nav-badge { margin-left: auto; color: #fff; font-size: 9px; font-weight: 700; border-radius: 10px; padding: 2px 7px; }
+
+.sidebar-footer {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 11px; color: rgba(255,255,255,0.28);
+    margin-top: auto;
+}
+
+
+/* ── 6. Main Layout ──────────────────────────────────────── */
+.main {
+    margin-left: 230px;
+    flex: 1;
+    padding: 32px 36px;
+    max-width: calc(100vw - 230px);
+    overflow-x: hidden;
+}
+
+
+/* ── 7. Cards & Stat Boxes ───────────────────────────────── */
+.card {
+    background: #fff;
+    border: 1px solid #dceade;
+    border-radius: 16px;
+    padding: 22px 24px;
+}
+.card-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 10px; font-weight: 700; color: #2e7d32;
+    text-transform: uppercase; letter-spacing: 1.4px;
+    margin-bottom: 16px;
+}
+.card-title-bar { display: block; width: 20px; height: 2px; background: #388e3c; border-radius: 1px; flex-shrink: 0; }
+
+.stat-box   { background: #fff; border: 1px solid #dceade; border-radius: 14px; padding: 18px 20px; flex: 1; min-width: 120px; }
+.stat-value { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1; margin-bottom: 4px; letter-spacing: -0.5px; }
+.stat-label { font-size: 10px; color: #8fa592; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+
+.row-item             { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #edf5ef; }
+.row-item:last-child  { border-bottom: none; }
+
+.alert-warning { padding: 10px 14px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; }
+.alert-error   { padding: 10px 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; }
+
+.grid-2    { display: grid; grid-template-columns: 1fr 1fr;       gap: 16px; }
+.grid-3    { display: grid; grid-template-columns: 1fr 1fr 1fr;   gap: 16px; }
+.flex-wrap { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.info-label { font-size: 10px; color: #8fa592; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; margin-bottom: 2px; }
+.info-value { font-size: 12.5px; color: #1a2b1c; font-weight: 600; }
+
+
+/* ── 8. Buttons ──────────────────────────────────────────── */
+.btn-primary            { background: linear-gradient(135deg, #256427, #2e7d32); color: #fff; border: none; border-radius: 9px; padding: 10px 20px; font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 14px rgba(46,125,50,0.25); }
+.btn-primary.sm         { padding: 6px 12px; font-size: 11px; }
+.btn-danger             { background: #fef2f2; color: #991b1b; border: 1.5px solid #fecaca; border-radius: 9px; padding: 10px 20px; font-size: 12.5px; font-weight: 700; }
+.btn-danger.sm          { padding: 6px 12px; font-size: 11px; }
+.btn-secondary          { padding: 10px 20px; border-radius: 9px; border: 1.5px solid #dceade; background: #fff; color: #2d4230; font-size: 13px; font-weight: 600; }
+.btn-blue               { background: linear-gradient(135deg, #1d4ed8, #2563eb); color: #fff; border: none; border-radius: 9px; padding: 10px 20px; font-size: 12.5px; font-weight: 700; }
+.btn-blue.sm            { padding: 6px 12px; font-size: 11px; }
+.btn-warning            { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; border: none; border-radius: 9px; padding: 10px 20px; font-size: 12.5px; font-weight: 700; }
+.btn-warning.sm         { padding: 6px 12px; font-size: 11px; }
+
+
+/* ── 9. Forms ────────────────────────────────────────────── */
+.form-group   { margin-bottom: 14px; }
+label         { font-size: 11px; color: #627065; margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 600; }
+.form-row     { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-control { width: 100%; background: #fff; border: 1.5px solid #dceade; border-radius: 10px; padding: 10px 13px; color: #0d150e; font-size: 13.5px; }
+
+
+/* ── 10. Modals ──────────────────────────────────────────── */
+.modal-overlay      { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal       { background: #fff; border-radius: 20px; padding: 28px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.18); }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: #0d150e; margin-bottom: 20px; }
+
+
+/* ── 11. Tables ──────────────────────────────────────────── */
+.data-table    { width: 100%; border-collapse: collapse; }
+.data-table th { text-align: left; font-size: 10px; color: #8fa592; text-transform: uppercase; padding: 7px 10px; letter-spacing: 0.8px; font-weight: 700; background: #f6faf7; border-bottom: 1px solid #dceade; }
+.data-table td { font-size: 12.5px; padding: 10px; border-bottom: 1px solid #edf5ef; vertical-align: middle; }
+
+
+/* ── 12. Page Headers ────────────────────────────────────── */
+.page-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+.eyebrow         { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+.eyebrow-bar     { width: 20px; height: 2px; background: #388e3c; border-radius: 1px; display: block; }
+.page-title      { font-family: 'DM Serif Display', serif; font-size: 30px; color: #0d150e; letter-spacing: -0.6px; margin-bottom: 4px; }
+.page-sub        { font-size: 13px; color: #627065; }
+
+
+/* ── 13. Map ─────────────────────────────────────────────── */
+#fleet-map { width: 100%; height: 480px; border-radius: 14px; z-index: 1; }
+
+
+/* ── 14. Kanban / Dispatch Board ─────────────────────────── */
+.kanban-board     { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+.kanban-col       { background: #f6faf7; border: 1px solid #dceade; border-radius: 14px; padding: 14px; }
+.kanban-header    { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #dceade; }
+.kanban-title     { font-size: 12px; font-weight: 700; color: #2d4230; }
+.kanban-count     { background: #dceade; color: #2e7d32; font-size: 10px; font-weight: 700; border-radius: 100px; padding: 2px 8px; }
+.kanban-card      { background: #fff; border: 1px solid #dceade; border-radius: 10px; padding: 14px; margin-bottom: 8px; cursor: grab; transition: box-shadow 200ms; }
+.kanban-card:hover{ box-shadow: 0 4px 16px rgba(46,125,50,0.12); }
+.kanban-drop-zone { min-height: 60px; border: 2px dashed #dceade; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #8fa592; }
+.sortable-ghost   { opacity: 0.4; background: #e8f5e9; border: 2px dashed #4caf50; }
+
+
+/* ── 15. Trip Tracking Panel ─────────────────────────────── */
+.tracking-panel      { position: fixed; top: 0; right: -480px; width: 460px; height: 100vh; background: #fff; border-left: 1px solid #dceade; z-index: 200; display: flex; flex-direction: column; transition: right 320ms cubic-bezier(.4,0,.2,1); box-shadow: -8px 0 32px rgba(0,0,0,0.12); }
+.tracking-panel.open { right: 0; }
+.tp-header    { padding: 20px 22px 16px; border-bottom: 1px solid #edf5ef; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
+.tp-title     { font-family: 'DM Serif Display', serif; font-size: 20px; color: #0d150e; }
+.tp-close     { width: 32px; height: 32px; border-radius: 8px; background: #f6faf7; border: 1px solid #dceade; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.tp-map       { flex: 1; min-height: 0; overflow: hidden; }
+.tp-map #track-map { width: 100%; height: 340px; }
+.tp-stats     { padding: 14px 18px; border-top: 1px solid #edf5ef; flex-shrink: 0; }
+.tp-stat      { display: flex; flex-direction: column; align-items: center; }
+.tp-stat-val  { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 700; line-height: 1; }
+.tp-stat-label{ font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: #8fa592; font-weight: 600; margin-top: 2px; }
+.tp-qr-wrap   { padding: 10px 18px 14px; border-top: 1px solid #edf5ef; text-align: center; flex-shrink: 0; }
+
+.movement-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.mv-moving  { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.mv-idle    { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.mv-stopped { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.mv-offline { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+
+/* ── 16. QR / Driver ID Card ─────────────────────────────── */
+.qr-card          { background: #fff; border: 1px solid #dceade; border-radius: 16px; padding: 22px; text-align: center; position: relative; }
+.qr-card-header   { background: linear-gradient(135deg, #14401a, #256427); color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; text-align: left; }
+.qr-card-org      { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 2px; }
+.qr-card-title    { font-family: 'DM Serif Display', serif; font-size: 15px; color: #fff; }
+.qr-driver-name   { font-family: 'DM Serif Display', serif; font-size: 20px; color: #0d150e; margin-bottom: 2px; }
+.qr-driver-detail { font-size: 11.5px; color: #627065; margin: 2px 0; }
+.qr-id-number     { font-size: 10px; font-weight: 700; color: #627065; letter-spacing: 1px; text-transform: uppercase; margin-top: 10px; }
+.qr-print-btn     { position: absolute; top: 10px; right: 10px; background: transparent; border: 1px solid #dceade; border-radius: 8px; padding: 4px 8px; font-size: 13px; cursor: pointer; color: #627065; }
+.qr-print-btn:hover { background: #f0fdf4; }
+
+
+/* ── 17. Charts ──────────────────────────────────────────── */
+.chart-container      { position: relative; height: 220px; }
+.chart-container-tall { position: relative; height: 280px; }
+
+
+/* ── 18. Priority Badges ─────────────────────────────────── */
+.priority-badge {
+    font-size: 9px; font-weight: 700;
+    padding: 2px 8px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+.priority-normal { background: rgba(46,125,50,.13);  color: #81c784; border: 1px solid rgba(46,125,50,.25); }
+.priority-urgent { background: rgba(220,38,38,.13);  color: #f87171; border: 1px solid rgba(220,38,38,.25); }
+.priority-high   { background: rgba(245,158,11,.13); color: #fbbf24; border: 1px solid rgba(245,158,11,.25); }
+
+
+/* ── 19. Print ───────────────────────────────────────────── */
+@media print {
+    .sidebar,
+    .btn-primary,
+    .btn-warning,
+    .btn-danger,
+    .btn-secondary,
+    .btn-blue,
+    .modal-overlay,
+    .page-header-row button { display: none !important; }
+    .main { margin-left: 0; padding: 20px; }
+}
